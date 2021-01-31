@@ -1,6 +1,9 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -10,10 +13,23 @@ namespace AkBarsUploader
     {
         static async Task Main(string[] args)
         {
-            using (IHost host = CreateHostBuilder(args).Build())
+            if (args.Length < 2)
             {
-                await host.RunAsync();
+                Console.WriteLine("You should provide two startup args: Directory and Url");
+                Console.ReadKey();
+                return;
             }
+            
+            if (!Directory.Exists(args[0]))
+            {
+                Console.WriteLine("Incorrect directory");
+                Console.ReadKey();
+                return;
+            }
+
+            using IHost host = CreateHostBuilder(args).Build();
+            
+            await host.RunAsync();
         }
 
         static IHostBuilder CreateHostBuilder(string[] args) => Host.CreateDefaultBuilder(args)
@@ -24,9 +40,13 @@ namespace AkBarsUploader
                     
                     IHostEnvironment env = hostingContext.HostingEnvironment;
 
+                    if (env.IsDevelopment())
+                    {
+                        configuration.AddUserSecrets<Program>();
+                    }
+                    
                     configuration
                         .AddJsonFile("appsettings.json", true, true)
-                        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true, true)
                         .AddCommandLine(args);
                 });
     }
