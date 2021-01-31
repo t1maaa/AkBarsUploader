@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkBarsUploader", "AkBarsUploader\AkBarsUploader.csproj", "{E6F9B093-8DE3-473C-B016-01B13C9DD6B5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{817E4435-F910-4ABF-9B65-AB69D0AF4DA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{817E4435-F910-4ABF-9B65-AB69D0AF4DA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{817E4435-F910-4ABF-9B65-AB69D0AF4DA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{817E4435-F910-4ABF-9B65-AB69D0AF4DA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6F9B093-8DE3-473C-B016-01B13C9DD6B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6F9B093-8DE3-473C-B016-01B13C9DD6B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6F9B093-8DE3-473C-B016-01B13C9DD6B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6F9B093-8DE3-473C-B016-01B13C9DD6B5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
