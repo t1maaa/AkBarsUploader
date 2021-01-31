@@ -9,30 +9,19 @@ using Microsoft.Extensions.Logging;
 
 namespace AkBarsUploader
 {
-    class Program
+    internal sealed class Program
     {
         static async Task Main(string[] args)
         {
-            if (args.Length < 2)
-            {
-                Console.WriteLine("You should provide two startup args: Directory and Url");
-                Console.ReadKey();
-                return;
-            }
-            
-            if (!Directory.Exists(args[0]))
-            {
-                Console.WriteLine("Incorrect directory");
-                Console.ReadKey();
-                return;
-            }
-
             using IHost host = CreateHostBuilder(args).Build();
-            
             await host.RunAsync();
         }
 
         static IHostBuilder CreateHostBuilder(string[] args) => Host.CreateDefaultBuilder(args)
+            .ConfigureServices((_, services) =>
+            {
+                services.AddHostedService<Context>();
+            })
             .ConfigureAppConfiguration(
                 (hostingContext, configuration) =>
                 {
