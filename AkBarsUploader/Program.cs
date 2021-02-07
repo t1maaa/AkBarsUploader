@@ -25,14 +25,14 @@ namespace AkBarsUploader
                     configuration.Sources.Clear();
                     
                     IHostEnvironment env = hostingContext.HostingEnvironment;
-
+                    
+                    configuration
+                        .AddJsonFile("appsettings.json", true, true)
+                        .AddCommandLine(args);
                     if (env.IsDevelopment())
                     {
                         configuration.AddUserSecrets<Program>();
                     }
-                    configuration
-                        .AddJsonFile("appsettings.json", true, true)
-                        .AddCommandLine(args);
                 });
     }
 }
