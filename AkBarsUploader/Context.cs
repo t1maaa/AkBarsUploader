@@ -32,13 +32,17 @@ namespace AkBarsUploader
             if (!_configuration.GetSection("SrcDir").Exists())
             {
                 _logger.LogCritical("Use SrcDir= launch option to set source directory.");
+                Console.ReadKey();
                 _appLifetime.StopApplication();
+                return;
             }
             
             if (!Directory.Exists(_configuration["SrcDir"]))
             {
                 _logger.LogCritical("Incorrect directory. Check your SrcDir= launch option or in application.json.");
+                Console.ReadKey();
                 _appLifetime.StopApplication();
+                return;
             }
 
             if (!_configuration.GetSection("DstDir").Exists())
@@ -55,19 +59,20 @@ namespace AkBarsUploader
                 }
             }
 
-            if (!_configuration.GetSection("YaDiskOAuthToken").Exists())
+            if (!_configuration.GetSection("YaDiskOAuthToken").Exists() || string.IsNullOrWhiteSpace(_configuration.GetSection("YaDiskOAuthToken").Value))
             {
                 _logger.LogError("No OAuth token.");
                 _logger.LogWarning("You can copy-paste it below for one-time usage. Also, you can save it in application.json OR run the app with YaDiskOAuthToken launch option");
                 
                 string newToken = Console.ReadLine();
 
-                if (string.IsNullOrWhiteSpace(newToken))
+                if (!string.IsNullOrWhiteSpace(newToken))
                     _configuration["YaDiskOAuthToken"] = newToken;
                 else
                 {
                     _logger.LogError("Incorrect OAuth token. Application will be stop. Set it in application.json OR run the app with YaDiskOAuthToken launch option");
                     _appLifetime.StopApplication();
+                    return;
                 }
             }
 
