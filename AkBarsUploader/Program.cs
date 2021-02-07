@@ -1,11 +1,7 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace AkBarsUploader
 {
@@ -21,6 +17,7 @@ namespace AkBarsUploader
             .ConfigureServices((_, services) =>
             {
                 services.AddHostedService<Context>();
+                services.AddTransient<IYaDiskExporter, YaDiskExporter>();
             })
             .ConfigureAppConfiguration(
                 (hostingContext, configuration) =>
@@ -33,7 +30,6 @@ namespace AkBarsUploader
                     {
                         configuration.AddUserSecrets<Program>();
                     }
-                    
                     configuration
                         .AddJsonFile("appsettings.json", true, true)
                         .AddCommandLine(args);
